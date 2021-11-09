@@ -3,11 +3,13 @@ package db
 import (
 	//"database/sql"
 	"fmt"
+	"log"
+	"os"
 
 	//_ "github.com/go-sql-driver/mysql"
 	//_ "github.com/lib/pq"
 	//	"log"
-
+	"github.com/joho/godotenv"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	//	"github.com/pressly/goose"
@@ -26,6 +28,17 @@ var db *gorm.DB
 var err error
 
 func Init() {
+	err := godotenv.Load(".env")
+
+	if err != nil {
+	  log.Fatalf("Error loading .env file")
+	}
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
+	dbUsername := os.Getenv("DB_USERNAME")
+	dbPass := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
+	fmt.Println(host)	
 	//------------------------------MYSQL----------------------------
 	//conf := config.GetConfig()
 	//connectionString := conf.DB_USERNAME + ":" + conf.DB_PASSWORD + "@tcp(" + conf.DB_HOST + ":" + conf.DB_PORT + ")/" + conf.DB_NAME
@@ -33,7 +46,8 @@ func Init() {
 	//---------------------------------------------------------------
 
 	//------------------------------Postgresql-----------------------
-	psqlconn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+	psqlconn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", dbHost, dbPort, dbUsername, dbPass, dbName)
+	fmt.Println(psqlconn)
 	db, err = gorm.Open("postgres", psqlconn)
 	//---------------------------------------------------------------
 
