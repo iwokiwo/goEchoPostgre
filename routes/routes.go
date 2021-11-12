@@ -46,7 +46,7 @@ func Init() *echo.Echo {
 }
 func produk(e *echo.Group) {
 	grA := e.Group("/produk")
-	grA.GET("/", controllers.GetProducts)
+	grA.GET("/", controllers.GetProducts,middleware.IsAuthenticated)
 }
 
 // func user(e *echo.Group) {
