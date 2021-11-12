@@ -3,7 +3,7 @@ package routes
 import (
 	"hotels/controllers"
 	"net/http"
-	//"hotels/middleware"
+	middlewares "hotels/middleware"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -46,7 +46,7 @@ func Init() *echo.Echo {
 }
 func produk(e *echo.Group) {
 	grA := e.Group("/produk")
-	grA.GET("/", controllers.GetProducts,middleware.IsAuthenticated)
+	grA.GET("/", controllers.GetProducts,middlewares.IsAuthenticated)
 }
 
 // func user(e *echo.Group) {
