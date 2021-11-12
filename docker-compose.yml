@@ -44,8 +44,8 @@ services:
   #   networks:
   #     - fullstack_test
   
- volumes:
-   api_golang:
+volumes:
+  api_golang:
 #   database_postgres_test:
   # database_mysql_test:
 
