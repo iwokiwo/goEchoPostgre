@@ -9,7 +9,7 @@ services:
     ports:
       - '8085:8085'
     volumes:
-      - api_golang:/app/src/app/
+      - api_golang2:/app/src/app/
     # depends_on:
     #   - postgres_test
       # - mysql_test
@@ -47,7 +47,7 @@ services:
   #     - fullstack_test
   
 volumes:
-  api_golang:
+  api_golang2:
 #   database_postgres_test:
   # database_mysql_test:
 
