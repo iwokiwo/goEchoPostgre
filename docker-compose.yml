@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
     volumes:
-      - api_test:/app/src/app/
+      - api_golang:/app/src/app/
     # depends_on:
     #   - postgres_test
       # - mysql_test
