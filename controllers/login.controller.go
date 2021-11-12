@@ -30,7 +30,7 @@ func CheckLogin(c echo.Context) error {
 	// username := c.FormValue("username")
 	// password := c.FormValue("password")
 
-	// fmt.Println(username)
+	 fmt.Println(json["username"])
 	// fmt.Println(password)
 	if err := c.Bind(&json); err != nil {
 		return c.JSON(http.StatusOK, err)
