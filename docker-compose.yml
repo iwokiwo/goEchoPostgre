@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
+    ports:
+      - '8085:8085'
     volumes:
       - api_golang:/app/src/app/
     # depends_on:
