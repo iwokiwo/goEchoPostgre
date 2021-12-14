@@ -38,6 +38,8 @@ func Init() *echo.Echo {
 	registerUser(v1)
 
 	kategori(v1)
+	addkategori(v1)
+
 	transaksidtls(v1)
 	GenerateHashPassword(v1)
 	login(v1)
@@ -67,8 +69,14 @@ func login(e *echo.Group) {
 
 func kategori(e *echo.Group) {
 	grA := e.Group("/kategori")
-	grA.GET("/", controllers.GetKategoris)
+	grA.GET("/", controllers.GetKategoris,middlewares.IsAuthenticated)
 }
+
+func addkategori(e *echo.Group) {
+	grA := e.Group("/addkategori")
+	grA.POST("/", controllers.AddKategoris,middlewares.IsAuthenticated)
+}
+
 func transaksidtls(e *echo.Group) {
 	grA := e.Group("/transaksi")
 	grA.GET("/transaksidtls", controllers.Gettrsdtls)

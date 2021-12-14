@@ -71,6 +71,7 @@ func CheckLogin(c echo.Context) error {
 	token := jwt.New(jwt.SigningMethodHS256)
 
 	claims := token.Claims.(jwt.MapClaims)
+	claims["id"] = userss[0].Id
 	claims["username"] = json["username"]
 	claims["level"] = "application"
 	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
@@ -83,6 +84,8 @@ func CheckLogin(c echo.Context) error {
 		res.Data = err.Error()
 		return c.JSON(http.StatusOK, res)
 	 }
+	// userInfo := token.Claims.(jwt.MapClaims)
+	// fmt.Println(userInfo)
 	 getPassword.Token = t
 	res.Status = http.StatusOK
 	res.Message = "Success"
