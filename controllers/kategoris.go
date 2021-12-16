@@ -26,6 +26,27 @@ func GetKategoris(c echo.Context) error {
 	return c.JSON(http.StatusOK, kategori)
 }
 
+func DeleteKategoris(c echo.Context) error {
+	var res models.Response
+	db := db.DbManager()
+	
+	if err := c.Bind(&jsonRegister); err != nil {
+	
+		return c.JSON(http.StatusOK, err)
+	}
+	var yes uint=uint(jsonRegister["id"].(float64))
+	var deleteKategori = models.Kategoris{
+		ID :yes,
+	}
+	result := 	db.Delete(&deleteKategori)
+	res.Status = http.StatusOK
+	res.Message = "Success"
+	res.Data = result.RowsAffected 
+	return c.JSON(http.StatusOK, res)
+
+
+}
+
 func AddKategoris(c echo.Context) error {
 	user := c.Get("user").(*jwt.Token)
 	claims := user.Claims.(jwt.MapClaims)
@@ -40,7 +61,7 @@ func AddKategoris(c echo.Context) error {
 	var yes uint=uint(jsonRegister["id"].(float64))
 		//y :=i
 	fmt.Println(yes)
-	if jsonRegister["id"] != nil {
+	if yes != 0 {
 		var addkategori = models.Kategoris{
 			ID :yes,
 			User_id: idUser,

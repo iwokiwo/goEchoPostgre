@@ -6,21 +6,21 @@ import (
 	"log"
 	// "os"
 
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 	//_ "github.com/go-sql-driver/mysql"
 	//_ "github.com/lib/pq"
 	//	"log"
 	"github.com/joho/godotenv"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
 	//	"github.com/pressly/goose"
 )
 
 const (
-	host     = "147.139.139.7"
+	host     = "localhost"
 	port     = 5432
 	user     = "postgres"
 	password = "postgres"
-	dbname   = "postgres"
+	dbname   = "yespos"
 )
 
 //var DB *sql.DB
