@@ -20,7 +20,7 @@ const (
 	port     = 5432
 	user     = "postgres"
 	password = "postgres"
-	dbname   = "yespos"
+	dbname   = "postgres"
 )
 
 //var DB *sql.DB
