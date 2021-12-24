@@ -16,11 +16,11 @@ import (
 )
 
 const (
-	host     = "147.139.139.7"
+	host     = "localhost"
 	port     = 5432
 	user     = "postgres"
 	password = "postgres"
-	dbname   = "postgres"
+	dbname   = "yespos"
 )
 
 //var DB *sql.DB

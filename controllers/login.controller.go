@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"net/http"
 	"fmt"
+	"net/http"
 	"time"
 
 	"hotels/db"
@@ -10,9 +10,8 @@ import (
 
 	"hotels/helpers"
 
-	"github.com/labstack/echo"
 	"github.com/dgrijalva/jwt-go"
-	
+	"github.com/labstack/echo"
 )
 
 type LoginToken struct {
@@ -24,15 +23,15 @@ type LoginToken struct {
 	
 }
 
-var json map[string]interface{} = map[string]interface{}{}
+var jsonLogin map[string]interface{} = map[string]interface{}{}
 
 func CheckLogin(c echo.Context) error {
 	// username := c.FormValue("username")
 	// password := c.FormValue("password")
 
-	 fmt.Println(json["username"])
+	// fmt.Println(json["username"])
 	// fmt.Println(password)
-	if err := c.Bind(&json); err != nil {
+	if err := c.Bind(&jsonLogin); err != nil {
 		return c.JSON(http.StatusOK, err)
 	}
 
@@ -41,7 +40,7 @@ func CheckLogin(c echo.Context) error {
 	userss := []models.Users{}
 	
 	// Cek email apakah ada atau tidak
-	if err := db.Where("email = ?", json["username"]).First(&userss); err.RowsAffected == 0 {
+	if err := db.Where("email = ?", jsonLogin["username"]).First(&userss); err.RowsAffected == 0 {
 		res.Status = 202
 		res.Message = "Email Tidak Ditemukan"
 		res.Data = err.RowsAffected
@@ -59,7 +58,7 @@ func CheckLogin(c echo.Context) error {
 	fmt.Println(getPassword.Password)	
 
 	//cocokan email
-	match, err := helpers.CheckPasswordHash(json["password"].(string), getPassword.Password)
+	match, err := helpers.CheckPasswordHash(jsonLogin["password"].(string), getPassword.Password)
 	if !match {
 		res.Status = 201
 		res.Message = "Password salah"
@@ -72,7 +71,7 @@ func CheckLogin(c echo.Context) error {
 
 	claims := token.Claims.(jwt.MapClaims)
 	claims["id"] = userss[0].Id
-	claims["username"] = json["username"]
+	claims["username"] = jsonLogin["username"]
 	claims["level"] = "application"
 	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
 
@@ -96,7 +95,7 @@ func CheckLogin(c echo.Context) error {
 func CheckLogin2(c echo.Context) error {
 	var res models.Response
 
-	if err := c.Bind(&json); err != nil {
+	if err := c.Bind(&jsonLogin); err != nil {
 		return err
 	}
 
@@ -105,13 +104,13 @@ func CheckLogin2(c echo.Context) error {
 	//bayu := c.QueryParam("username")
 	//fmt.Println(bayu)
 	//fmt.Println(password)
-	fmt.Println(json["password"])
+	fmt.Println(jsonLogin["password"])
 
 //	getPassword := json[0]
 
 	res.Status = http.StatusOK
 	res.Message = "Success"
-	res.Data = json
+	res.Data = jsonLogin
 	return c.JSON(http.StatusOK, res)
 }
 

@@ -2,12 +2,11 @@ package routes
 
 import (
 	"hotels/controllers"
-	"net/http"
 	middlewares "hotels/middleware"
+	"net/http"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	
 )
 
 func Init() *echo.Echo {
@@ -39,6 +38,7 @@ func Init() *echo.Echo {
 
 	kategori(v1)
 	addkategori(v1)
+	addkategorimulti(v1)
 	deletekategori(v1)
 
 	transaksidtls(v1)
@@ -76,6 +76,11 @@ func kategori(e *echo.Group) {
 func addkategori(e *echo.Group) {
 	grA := e.Group("/addkategori")
 	grA.POST("/", controllers.AddKategoris,middlewares.IsAuthenticated)
+}
+
+func addkategorimulti(e *echo.Group) {
+	grA := e.Group("/addkategorimulti")
+	grA.POST("/", controllers.AddKategoriMulti,middlewares.IsAuthenticated)
 }
 
 func deletekategori(e *echo.Group) {
